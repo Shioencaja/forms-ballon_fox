@@ -1,0 +1,57 @@
+<form [formGroup]="formularioContacto" class="example-form">
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input
+      matInput
+      placeholder="Ej. Gabriel"
+      value="Gabriel"
+      formControlName="nombre"
+    />
+    <mat-error
+      *ngIf="this.formularioContacto.get('nombre')?.errors?.['required']"
+      >El nombre es obligatorio</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      type="email"
+      matInput
+      formControlName="email"
+      [errorStateMatcher]="matcher"
+      placeholder="Ex. pat@example.com"
+    />
+
+    <mat-error
+      *ngIf="
+      this.formularioContacto.get('email')?.errors?.['email'] && !this.formularioContacto.get('email')?.errors?.['required']
+      "
+    >
+      Por favor, verifica que el email esté escrito correctamente
+    </mat-error>
+    <mat-error
+      *ngIf="this.formularioContacto.get('email')?.errors?.['required']"
+    >
+      El email is <strong>obligatorio</strong>
+    </mat-error>
+  </mat-form-field>
+  <label id="radio-group-label">Género*</label>
+  <mat-radio-group aria-labelledby="radio-group-label" formControlName="genero">
+    <mat-radio-button *ngFor="let genero of generos" [value]="genero">{{
+      genero
+    }}</mat-radio-button>
+  </mat-radio-group>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="
+      this.formularioContacto.get('name')?.invalid ||
+      this.formularioContacto.get('email')?.invalid ||
+      this.formularioContacto.get('genero')?.invalid
+    "
+  >
+    Aún no haz terminado de llenar los datos
+  </button>
+</form>
