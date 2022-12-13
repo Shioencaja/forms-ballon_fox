@@ -29,15 +29,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./formulario.component.css'],
 })
 export class FormularioComponent implements OnInit {
+  onSubmit() {
+    console.log('enviando');
+    this.formularioContacto.reset();
+  }
   generos: string[] = ['Masculino', 'Femenino', 'Prefiero no especificar'];
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-  nameFormControl = new FormControl('', [Validators.required]);
-
-  genderFormControl = new FormControl('', Validators.required);
 
   matcher = new MyErrorStateMatcher();
   constructor(private fb: FormBuilder) {}
